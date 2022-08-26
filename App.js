@@ -11,11 +11,18 @@ import {
   StyleSheet,
   Image,
   View,
+  Header,
   Text,
   Linking,
   TouchableOpacity,
   ImageBackground,
+  ScrollView,
+  StatusBar,
+  SafeAreaView,
 } from 'react-native';
+import {ListItem, Avatar} from '@rneui/themed';
+import Navbar from './navbar.component';
+import Test22 from './test.component';
 import {Button} from '@react-native-material/core';
 
 const DATA = [
@@ -50,8 +57,12 @@ class App extends Component {
   render() {
     const DATAMAP = DATA.map((item, index) => {
       return (
-        <View key={index} style={styles.enes}>
-          <View key={index} style={styles.imageDiv}>
+        <View key={index} style={styles.gameWrapper}>
+          <View style={styles.headerDiv}>
+            <Text style={styles.headerText}>{item.gameName}</Text>
+          </View>
+          <View style={styles.bottomContent}>
+            {/* <View key={index} style={styles.imageDiv}> */}
             <TouchableOpacity
               style={styles.imageDiv}
               onPress={() => {
@@ -65,10 +76,11 @@ class App extends Component {
                 }}
               />
             </TouchableOpacity>
-          </View>
-          <View style={styles.textDiv}>
-            <Text style={styles.title}>{item.gameName}</Text>
-            <Text style={styles.description}>{item.gameDescription}</Text>
+            {/* </View> */}
+            <View style={styles.textDiv}>
+              {/* <Text style={styles.title}>{item.gameName}</Text> */}
+              <Text style={styles.description}>{item.gameDescription}</Text>
+            </View>
           </View>
         </View>
       );
@@ -76,11 +88,14 @@ class App extends Component {
 
     return (
       <>
-        <View style={styles.sectionContainer}>
-          <Button title="NullContent" />
+        {/* <SafeAreaView contentContainerStyle={styles.sectionContainer}> */}
+        <ScrollView style={styles.scrollView}>
+          <Navbar />
+          {/* <Button title="NullContent" /> */}
           <View>{DATAMAP}</View>
-        </View>
-        <Text onPress={() => Linking.openURL('http://google.com')}>sadas</Text>
+          <Test22 />
+        </ScrollView>
+        {/* </SafeAreaView> */}
       </>
     );
   }
@@ -88,57 +103,59 @@ class App extends Component {
 
 const styles = StyleSheet.create({
   sectionContainer: {
-    // marginTop: 32,
-    // paddingHorizontal: 24,
     display: 'flex',
-    // flexDirection: 'column',
-    overflow: 'scroll',
+    // overflow: 'scroll',
+    flex: 1,
+    paddingTop: StatusBar.currentHeight,
   },
-  gameContainer: {
-    display: 'flex',
-    flexDirection: 'row',
-    // flexWrap: 'wrap',
-    // justifyContent: 'space-between',
-    // marginTop: 32,
-  },
-  enes: {
-    display: 'flex',
-    flexDirection: 'row',
-    marginTop: 32,
-  },
-  item: {
+  gameWrapper: {
     display: 'flex',
     flexDirection: 'column',
-    justifyContent: 'space-between',
     alignItems: 'center',
-    marginTop: 32,
-    marginBottom: 32,
-    width: '100%',
-    height: '100%',
-    // flex: 1,
+    overflow: 'scroll',
+    horizontalGap: 10,
+    marginTop: 40,
   },
+  headerDiv: {
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding: 15,
+    minWidth: '100%',
+    backgroundColor: '#163e35',
+    borderBottomRightRadius: 30,
+  },
+  headerText: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    color: '#fff',
+  },
+  bottomContent: {
+    display: 'flex',
+    flexDirection: 'row',
+  },
+
   textDiv: {
-    // display: 'flex',
-    // flexDirection: 'column',
-    // justifyContent: 'center',
-    // alignItems: 'center',
-    // width: '60%',
-    // height: '100%',
+    display: 'flex',
+    flexDirection: 'column',
+    // marginTop: 32,
+    marginBottom: 32,
+    width: '75%',
+    height: '100%',
+    // padding: 8,
+    justifyContent: 'center',
   },
   imageDiv: {
-    // width: '25%',
-    // height: '100%',
+    alignItems: 'center',
     justifyContent: 'center',
-    paddingRight: 10,
-
-    border: '1px solid blue',
-    boxShadow: '0px 0px 10px rgba(0, 0, 0, 0.5)',
+    marginRight: 10,
   },
 
   stretch: {
-    width: 100,
+    alignSelf: 'center',
+    width: 75,
     height: 100,
-    resizeMode: 'stretch',
+    // resizeMode: 'stretch',
     borderRadius: 50,
   },
   sectionTitle: {
