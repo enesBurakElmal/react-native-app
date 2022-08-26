@@ -55,6 +55,7 @@ class App extends Component {
   getMails = () => {};
 
   render() {
+    // getMoviesFromApiAsync(getMoviesFromApiAsync());
     const DATAMAP = DATA.map((item, index) => {
       return (
         <View key={index} style={styles.gameWrapper}>
@@ -89,12 +90,14 @@ class App extends Component {
     return (
       <>
         {/* <SafeAreaView contentContainerStyle={styles.sectionContainer}> */}
-        <ScrollView style={styles.scrollView}>
-          <Navbar />
-          {/* <Button title="NullContent" /> */}
-          <View>{DATAMAP}</View>
-          <Test22 />
-        </ScrollView>
+        <View style={styles.sectionContainer}>
+          <ScrollView style={styles.scrollView}>
+            <Navbar />
+            {/* <Button title="NullContent" /> */}
+            <View>{DATAMAP}</View>
+            <Test22 />
+          </ScrollView>
+        </View>
         {/* </SafeAreaView> */}
       </>
     );
@@ -106,7 +109,8 @@ const styles = StyleSheet.create({
     display: 'flex',
     // overflow: 'scroll',
     flex: 1,
-    paddingTop: StatusBar.currentHeight,
+    // paddingTop: StatusBar.currentHeight,
+    backgroundColor: '#e5e5e5',
   },
   gameWrapper: {
     display: 'flex',

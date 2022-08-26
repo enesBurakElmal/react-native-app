@@ -17,6 +17,7 @@
     "@react-navigation/bottom-tabs": "^6.3.3",
     "@rneui/base": "^4.0.0-rc.6",
     "@rneui/themed": "^4.0.0-rc.6",
+    "axios": "^0.27.2",
     "react": "18.0.0",
     "react-devtools": "^4.25.0",
     "react-native": "0.69.4",

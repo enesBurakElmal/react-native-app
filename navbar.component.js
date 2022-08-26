@@ -38,6 +38,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#FFAE00',
     boxShadow: '0px 0px 5px #9147ff',
     height: 50,
+    // padding: 10,
   },
   imageDiv: {
     width: '20%',
