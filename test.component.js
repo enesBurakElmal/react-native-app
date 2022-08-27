@@ -29,16 +29,6 @@ class Test22 extends Component {
     this.componentDidUpdate();
   }
   componentDidUpdate() {
-    // useEffect(() => {
-    // axios
-    //   .get('https://randomuser.me/api/?results=10')
-    //   .then(response => {
-    //     console.log(response, 'sa');
-    //   })
-    //   .catch(error => {
-    //     console.log(error);
-    //   });
-    // }, []);
     const getAdvice = () => {
       // useEffect(() => {
       axios.get('https://api.github.com/users/hadley/orgs').then(response => {
@@ -55,12 +45,8 @@ class Test22 extends Component {
 
   render() {
     const {randomUserData} = this.state;
-    console.log(randomUserData, 'advice');
-    return (
-      <View>
-        <Text>Sasasaa22</Text>
-      </View>
-    );
+    // console.log(randomUserData, 'advice');
+    return <View>{/* <Text>Sasasaa22</Text> */}</View>;
   }
 }
 export default Test22;

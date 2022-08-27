@@ -24,37 +24,53 @@ import {ListItem, Avatar} from '@rneui/themed';
 import Navbar from './navbar.component';
 import Test22 from './test.component';
 import {Button} from '@react-native-material/core';
+import DATA from './data.js';
 
-const DATA = [
-  {
-    gameName: 'Counter Strike: Global Offensive',
-    gameLink:
-      'https://store.steampowered.com/app/730/Counter_Strike_Global_Offensive/',
-    gameImage:
-      'https://seeklogo.com/images/C/csgo-logo-CAA0A4D48A-seeklogo.com.png',
-    gameDescription:
-      'Counter Strike: Global Offensive (CS:GO) is a first-person shooter video game developed by Hidden Path Entertainment and Valve Corporation. It is the fourth game in the Counter-Strike series and the successor to the previous Counter-Strike: Source game, which was released in 2002. The game was released for Microsoft Windows, OS X, and Linux in March 2012. It is the first game in the series to be released for the Nintendo Switch.',
-  },
-  {
-    gameName: 'Valorant',
-    gameLink: 'https://valorant.com/',
-    gameImage:
-      'https://images.cults3d.com/4QqRV9kLYYEuw9ur_X3yjQl1sjk=/516x516/https://files.cults3d.com/uploaders/15024335/illustration-file/a86d53e4-2bd9-4a8f-9550-986686c3131a/gi0mAjIh_400x400.png',
-    gameDescription:
-      'Valorant is a free-to-play multiplayer battle royale game developed and published by Respawn Entertainment. It is the first game in the Respawn Entertainment series of games, and the first game to be released for the Nintendo Switch. The game was released for Microsoft Windows, OS X, and Linux in November 2018. It is the first game in the series to be released for the Nintendo Switch.',
-  },
-];
 // npx react-native run-android
 
 class App extends Component {
   constructor(props) {
     super(props);
-    this.getMails();
+    // this.getMails();
+    this.pageCount = 0;
+    this.currentPage = 1;
+    this.paginatedArray = [];
+    // this.paginatedData();
   }
 
-  getMails = () => {};
+  paginatedData = currentPage => {
+    let startIndex = (currentPage - 1) * 2;
+    let endIndex = startIndex + 2;
+    const dataDisplay = DATA.slice(startIndex, endIndex);
+    const totalPages = Math.ceil(DATA.length / 2);
+    this.pageCount = totalPages;
+    return dataDisplay;
+  };
+
+  nextPageButton = () => {
+    if (this.currentPage < this.pageCount) {
+      this.currentPage++;
+      this.paginatedArray = this.paginatedData(this.currentPage);
+      console.log(this.paginatedArray, 'paginated array');
+      return true;
+    } else {
+      return false;
+    }
+  };
 
   render() {
+    const {paginatedData, pageCount, nextPageButton} = this;
+    paginatedData(this.currentPage);
+    console.log(nextPageButton(), 'next page button');
+    console.log(
+      DATA,
+      'normal data',
+      paginatedData(this.currentPage),
+      'after paginated data',
+      'total page count',
+      this.pageCount,
+    );
+
     // getMoviesFromApiAsync(getMoviesFromApiAsync());
     const DATAMAP = DATA.map((item, index) => {
       return (
@@ -81,6 +97,15 @@ class App extends Component {
             <View style={styles.textDiv}>
               {/* <Text style={styles.title}>{item.gameName}</Text> */}
               <Text style={styles.description}>{item.gameDescription}</Text>
+              <View style={styles.buttonDiv}>
+                <Button
+                  title="View More"
+                  style={styles.button}
+                  onPress={() => {
+                    nextPageButton();
+                  }}
+                />
+              </View>
             </View>
           </View>
         </View>
@@ -89,16 +114,14 @@ class App extends Component {
 
     return (
       <>
-        {/* <SafeAreaView contentContainerStyle={styles.sectionContainer}> */}
-        <View style={styles.sectionContainer}>
+        <SafeAreaView contentContainerStyle={styles.sectionContainer}>
           <ScrollView style={styles.scrollView}>
             <Navbar />
-            {/* <Button title="NullContent" /> */}
             <View>{DATAMAP}</View>
             <Test22 />
+            <Text>{this.pageCount}</Text>
           </ScrollView>
-        </View>
-        {/* </SafeAreaView> */}
+        </SafeAreaView>
       </>
     );
   }
@@ -142,12 +165,21 @@ const styles = StyleSheet.create({
   textDiv: {
     display: 'flex',
     flexDirection: 'column',
-    // marginTop: 32,
     marginBottom: 32,
     width: '75%',
     height: '100%',
-    // padding: 8,
     justifyContent: 'center',
+  },
+  gameDescription: {
+    fontSize: 14,
+    color: '#333',
+    marginBottom: 4,
+  },
+  buttonDiv: {
+    marginTop: 10,
+  },
+  button: {
+    textAlign: 'center',
   },
   imageDiv: {
     alignItems: 'center',
@@ -159,7 +191,6 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     width: 75,
     height: 100,
-    // resizeMode: 'stretch',
     borderRadius: 50,
   },
   sectionTitle: {
